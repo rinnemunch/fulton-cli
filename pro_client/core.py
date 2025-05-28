@@ -1,5 +1,4 @@
-# pro_client/core.py
-
+import datetime
 import json
 import os
 
@@ -27,7 +26,14 @@ def show_status():
     print()
 
 
-def enable_service(service_name):
+def log_action(action, service_name):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    entry = f"[{action}] {service_name} at {timestamp}\n"
+    with open("log.txt", "a") as file:
+        file.write(entry)
+
+
+def enable_service(service_name, log=False):
     services = load_services()
     if service_name not in services:
         print(f"❌ '{service_name}' is not a recognized service.")
@@ -35,9 +41,11 @@ def enable_service(service_name):
     services[service_name] = True
     save_services(services)
     print(f"✅ '{service_name}' has been enabled.")
+    if log:
+        log_action("Enabled", service_name)
 
 
-def disable_service(service_name):
+def disable_service(service_name, log=False):
     services = load_services()
     if service_name not in services:
         print(f"❌ '{service_name}' is not a recognized service.")
@@ -45,3 +53,5 @@ def disable_service(service_name):
     services[service_name] = False
     save_services(services)
     print(f"🛑 '{service_name}' has been disabled.")
+    if log:
+        log_action("Disabled", service_name)

@@ -16,19 +16,21 @@ def main():
     # enable command
     enable_parser = subparsers.add_parser('enable', help='Enable a mock service')
     enable_parser.add_argument('--service', type=str, required=True, help='Service name to enable')
+    enable_parser.add_argument('--log', action='store_true', help='Log the action')
 
     # disable command
     disable_parser = subparsers.add_parser('disable', help='Disable a mock service')
     disable_parser.add_argument('--service', type=str, required=True, help='Service name to disable')
+    disable_parser.add_argument('--log', action='store_true', help='Log the action')
 
     args = parser.parse_args()
 
     if args.command == 'status':
         core.show_status()
     elif args.command == 'enable':
-        core.enable_service(args.service)
+        core.enable_service(args.service, log=args.log)
     elif args.command == 'disable':
-        core.disable_service(args.service)
+        core.disable_service(args.service, log=args.log)
     else:
         parser.print_help()
 
