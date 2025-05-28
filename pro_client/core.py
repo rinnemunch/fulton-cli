@@ -57,3 +57,13 @@ def disable_service(service_name, log=False):
     print(f"🛑 '{service_name}' has been disabled.")
     if log:
         log_action("Disabled", service_name)
+
+
+def reset_services():
+    default_state = {
+        "updates": False,
+        "backups": False,
+        "monitoring": False
+    }
+    save_services(default_state)
+    print("🔄 All services have been reset to default (DISABLED).")

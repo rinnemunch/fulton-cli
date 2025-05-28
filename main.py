@@ -24,6 +24,10 @@ def main():
     disable_parser.add_argument('--service', type=str, required=True, help='Service name to disable')
     disable_parser.add_argument('--log', action='store_true', help='Log the action')
 
+    # reset command
+    reset_parser = subparsers.add_parser('reset', help='Reset all services to default (disabled)')
+    reset_parser.set_defaults(func=core.reset_services)
+
     args = parser.parse_args()
 
     if args.command == 'status':
@@ -32,6 +36,8 @@ def main():
         core.enable_service(args.service, log=args.log)
     elif args.command == 'disable':
         core.disable_service(args.service, log=args.log)
+    elif args.command == 'reset':
+        core.reset_services()
     else:
         parser.print_help()
 
