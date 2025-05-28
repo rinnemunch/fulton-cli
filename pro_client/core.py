@@ -17,12 +17,14 @@ def save_services(services):
         json.dump(services, file, indent=4)
 
 
-def show_status():
+def show_status(verbose=False):
     services = load_services()
     print("\n📊 Service Status:\n")
     for name, enabled in services.items():
         status = "ENABLED ✅" if enabled else "DISABLED ❌"
         print(f" - {name.capitalize():<12}: {status}")
+        if verbose:
+            print(f"   ↪ Service key: '{name}', current value: {enabled}")
     print()
 
 
