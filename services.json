@@ -1,5 +1,5 @@
 {
     "updates": false,
-    "backups": true,
+    "backups": false,
     "monitoring": false
 }
